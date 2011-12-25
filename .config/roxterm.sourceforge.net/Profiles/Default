@@ -1,0 +1,5 @@
+
+[roxterm profile]
+always_show_tabs=0
+browser=chromium-browser
+hide_menubar=1
