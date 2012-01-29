@@ -19,3 +19,6 @@ use_udp_trackers = yes
 encryption = require
 dht = auto
 peer_exchange = yes
+
+ratio.enable = 
+ratio.min.set = 150
