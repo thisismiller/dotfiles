@@ -49,7 +49,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "notes", "web", "chat", 4, 5, 6, 7, 8, 9, 0, "music", "hide" }, s, layouts[1])
+    tags[s] = awful.tag({ "chat", "web", 3, 4, 5, 6, 7, 8, 9, 0, "dl", "hide" }, s, layouts[1])
 end
 -- }}}
 
@@ -337,3 +337,5 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+awful.util.spawn_with_shell("~/startup.sh")

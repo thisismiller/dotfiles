@@ -3,3 +3,5 @@
 always_show_tabs=0
 browser=chromium-browser
 hide_menubar=1
+audible_bell=0
+visible_bell=1
