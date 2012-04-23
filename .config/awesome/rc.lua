@@ -196,6 +196,10 @@ globalkeys = awful.util.table.join(
             end
         end),
 
+    -- Screen Casting
+    -- awful.key({ modkey, "Control" }, ".", function () awful.util.spawn("./screencast.sh ./Videos/screencast.mkv") end),
+    -- awful.key({ modkey, "Shift"   }, ".", function () awful.util.spawn("pkill -INT ffmpeg") end),
+
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
