@@ -1,3 +1,6 @@
 #!/bin/bash
 
+export PATH="$PATH:~/.cabal/bin"
 export EDITOR=vim
+alias csi='rlwrap csi'
+alias make='make -j4'
