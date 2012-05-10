@@ -309,6 +309,8 @@ awful.rules.rules = {
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
     { rule = { class = "Exe"}, properties = {floating = true} }, -- full screen flash
+    { rule = { class = "Npviewer.bin"}, properties = {floating = true} }, -- full screen flash
+    { rule = { class = "Chromium-browser" }, properties = {floating = false} },
 }
 -- }}}
 
