@@ -4,3 +4,5 @@ export PATH="$PATH:~/.cabal/bin"
 export EDITOR=vim
 alias csi='rlwrap csi'
 alias make='make -j4'
+
+export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[0;31m\]\$(__git_ps1)\[\033[01;34m\] \$\[\033[00m\] "
