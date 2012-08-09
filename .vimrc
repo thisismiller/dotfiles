@@ -16,6 +16,9 @@ set hlsearch
 set wildmode=longest,list
 set wildmenu
 
+" Dark terminals
+set background=dark
+
 " Should belong in ftplugin/tex.vim, but it needs to run before syntax/tex.vim
 let g:tex_conceal="adgm"
 
