@@ -1,0 +1,47 @@
+#!/bin/bash
+
+COLOR_GREEN="\033[01;32m"
+COLOR_RED="\033[01;31m"
+COLOR_NORMAL="\033[00;m"
+
+LINE=". . . . . . . . . . . . . . . "
+
+case $1 in
+	uploadthis)
+    shift
+		. /etc/bash_completion.d/git
+		repo upload . --br=$(__git_ps1 "%s") $@
+		;;
+
+  rebaseall)
+    current_branch=$(git branch | grep '*' | tr -d '*')
+    for branch in $(git branch | grep -vF "$(echo -e "string_must_not_be_empty\n$(git branch --contains m/master)")" | tr -d '*'); do
+      git checkout $branch > /dev/null 2>&1
+      if git rebase m/master > /dev/null 2>&1; then
+        printf "%s%s%b\n" "$branch" "${LINE:${#branch}}" "${COLOR_GREEN}[ SUCCESS ]${COLOR_NORMAL}"
+      else
+        git rebase --abort > /dev/null 2>&1
+        printf "%s%s%b\n" "$branch" "${LINE:${#branch}}" "${COLOR_RED}[ FAILED  ]${COLOR_NORMAL}"
+      fi
+    done
+    git checkout $current_branch
+    ;;
+
+  reap)
+    for branch in $(git branch --merged m/master | sed "/*/d"); do
+      git branch -d $branch
+    done
+    ;;
+
+  help)
+    echo usage: git repo COMMAND
+    echo
+    echo uploadthis -- upload the current branch
+    echo rebaseall -- rebase all branches onto m/master
+    echo reap -- delete all branches that are fully merged
+    echo
+    repo help
+    ;;
+
+	*) repo $@;;
+esac
