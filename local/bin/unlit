@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import argparse
+#import markdown
+import sys
+
+def parse_args():
+  parser = argparse.ArgumentParser()
+  parser.add_argument('input_file', nargs='?')
+  parser.add_argument('-o', '--output', dest='output_file')
+  parser.add_argument('-l', '--lines', action="store_true",
+                      help="Preserve line numberings across translation")
+  options = parser.parse_args()
+
+  if options.output_file and options.output_file != '-':
+    options.output = file(options.output_file, 'w')
+  else:
+    options.output = sys.stdout
+
+  if options.input_file and options.input_file != '-':
+    options.input = file(options.input_file, 'r')
+  else:
+    options.input = sys.stdin
+
+  return options
+
+def main():
+  options = parse_args()
+
+  for line in options.input:
+    if line[0:2] == '> ':
+      options.output.write(line[2:])
+    else:
+      if options.lines:
+        options.output.write("\n")
+
+if __name__ == '__main__':
+  main()

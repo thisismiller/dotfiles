@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+
+import cStringIO
+import sys
+
+from pylint import lint
+from pylint.reporters.text import ParseableTextReporter
+
+def main():
+  output = cStringIO.StringIO()
+  lint.Run(sys.argv, reporter=ParseableTextReporter(output), exit=False)
+  sys.stdout.write(output.read())
+
+if __name__ == '__main__':
+  main()
