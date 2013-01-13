@@ -6,7 +6,12 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+runtime! syntax/markdown.vim
+unlet b:current_syntax
+
 syntax include @pythonTop syntax/python.vim
+unlet b:current_syntax
+
 syntax region litPythonBirdTrack start="^>" end="\%(^[^>]\)\@=" contains=@pythonTop,litBirdTrack
 
 syntax match litBirdTrack "^>" contained
