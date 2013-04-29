@@ -4,6 +4,7 @@ import argparse
 #import markdown
 import sys
 
+
 def parse_args():
   parser = argparse.ArgumentParser()
   parser.add_argument('input_file', nargs='?')
@@ -24,15 +25,22 @@ def parse_args():
 
   return options
 
+
+def unlit_copy(input, output, keep_lines=False):
+  for line in input:
+    if line == '>\n':
+      output.write('\n')
+    elif line[0] == '>':
+      output.write(line[2:])
+    else:
+      if keep_lines:
+        output.write("\n")
+
+
 def main():
   options = parse_args()
 
-  for line in options.input:
-    if line[0:2] == '> ':
-      options.output.write(line[2:])
-    else:
-      if options.lines:
-        options.output.write("\n")
+  unlit_copy(options.input, options.output, options.lines)
 
 if __name__ == '__main__':
   main()

@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+
+import argparse
+import itertools
+import sys
+
+
+def parse_args():
+  parser = argparse.ArgumentParser()
+  parser.add_argument('input_files', nargs='*')
+  parser.add_argument('-o', '--output', dest='output_file')
+  options = parser.parse_args()
+
+  if options.output_file and options.output_file != '-':
+    options.output = file(options.output_file, 'w')
+  else:
+    options.output = sys.stdout
+
+  if options.input_files and options.input_files != ['-']:
+    iterables = [file(f, 'r') for f in options.input_files]
+    seperator = itertools.repeat('\n')
+    flattened = [ x for y in zip(iterables, seperator) for x in y ]
+    options.input = itertools.chain(*flattened)
+  else:
+    options.input = sys.stdin
+
+  return options
+
+
+def line_is_code(line):
+  return line.startswith('>')
+
+
+def find_words(line):
+  if line_is_code(line):
+    return ('', find_words)
+  elif line.strip() == '':
+    return ('\n', find_words)
+  else:
+    return (line, words_and_code)
+
+
+def words_and_code(line):
+  if line_is_code(line):
+    return code_block(line)
+  else:
+    return (line, words_and_code)
+
+
+def code_block(line):
+  if line_is_code(line):
+    if line[2:]:
+      return (' '*4 + line[2:], code_block)
+    else:
+      return (' '*4 + '\n', code_block)
+  else:
+    return find_words(line)
+
+
+def main():
+  args = parse_args()
+
+  state = find_words
+  for line in args.input:
+    (out, state) = state(line)
+    args.output.write(out)
+
+
+if __name__ == '__main__':
+  main()

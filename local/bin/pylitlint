@@ -1,15 +1,63 @@
 #!/usr/bin/env python
 
-import cStringIO
+import StringIO
 import sys
+import tempfile
 
 from pylint import lint
+from pylint.reporters import BaseReporter
 from pylint.reporters.text import ParseableTextReporter
 
+
+class CollectingReporter(ParseableTextReporter):
+    """a reporter very similar to TextReporter, but display messages in a form
+    recognized by most text editors :
+
+    <filename>:<linenum>:<msg>
+    """
+    line_format = '%(path)s:%(line)s: [%(sigle)s%(obj)s] %(msg)s\n'
+
+    def __init__(self, output=sys.stdout, relative=True):
+        ParseableTextReporter.__init__(self, output, relative)
+        self.errors = []
+
+    def add_message(self, msg_id, location, msg):
+        """manage message of different type and in the context of path"""
+        path, _, obj, line, _ = location
+        if obj:
+            obj = ', %s' % obj
+        if self.include_ids:
+            sigle = msg_id
+        else:
+            sigle = msg_id[0]
+        if self._prefix:
+            path = path.replace(self._prefix, '')
+        self.errors.append(dict(path=path, line=line, sigle=sigle,
+                                obj=obj, msg=msg))
+
+    def write(self, override={}):
+        for error in self.errors:
+            self.out.write(self.line_format % dict(error, **override))
+
+def unlit_copy(input, output, keep_lines=False):
+  for line in input:
+    if line[0:2] == '> ':
+      output.write(line[2:])
+    else:
+      if keep_lines:
+        output.write("\n")
+
 def main():
-  output = cStringIO.StringIO()
-  lint.Run(sys.argv, reporter=ParseableTextReporter(output), exit=False)
-  sys.stdout.write(output.read())
+  for tolint in sys.argv[1:]:
+    reporter = CollectingReporter()
+    with open(tolint, 'r') as litpy_file:
+      with tempfile.NamedTemporaryFile(suffix='.py') as tmp:
+        unlit_copy(litpy_file, tmp, keep_lines=True)
+        tmp.seek(0)
+        lint.Run(['--disable=W0311', tmp.name], reporter=reporter, exit=False)
+        reporter.out = sys.stderr
+        reporter.write(override={'path':tolint})
+
 
 if __name__ == '__main__':
   main()

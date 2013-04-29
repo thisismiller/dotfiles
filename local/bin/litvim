@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for file in $@; do
+  if test -e ${file%lit} -a ! -e ${file}; then
+    cp ${file%lit} ${file}
+    sed -i 's/^/> /' ${file}
+  fi
+done
+
+vim $@
