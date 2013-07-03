@@ -58,8 +58,10 @@ case $1 in
     current_branch=$(git_current_branch)
     upload_branch=$(git_temporary_branch)
     silent git checkout -t m/master -b $upload_branch
-    quiet git cherry-pick --ff ..$2
-    git repo upload --br=$upload_branch
+    quiet git cherry-pick --ff $2
+    shift
+    shift
+    git repo upload --br=$upload_branch $@
     silent git checkout $current_branch
     silent git branch -D $upload_branch
     ;;
