@@ -28,11 +28,11 @@ function silent() {
 }
 
 case $1 in
-	uploadthis)
+  uploadthis)
     shift
-		source /etc/bash_completion.d/git-prompt
-		repo upload . --br=$(__git_ps1 "%s") $@
-		;;
+    source /etc/bash_completion.d/git-prompt
+    repo upload . --br=$(__git_ps1 "%s") $@
+    ;;
 
   rebaseall)
     current_branch=$(git_current_branch)
@@ -70,11 +70,12 @@ case $1 in
     echo usage: git repo COMMAND
     echo
     echo uploadthis -- upload the current branch
+    echo uploadcommit -- uploads the specified commit hash by itself
     echo rebaseall -- rebase all branches onto m/master
     echo reap -- delete all branches that are fully merged
     echo
     repo help
     ;;
 
-	*) repo $@;;
+  *) repo $@;;
 esac
