@@ -25,6 +25,9 @@ if !exists("main_syntax")
   let main_syntax = 'ats'
 endif
 
+" Enable @, $, + as keywordable chars
+setlocal iskeyword=36,43,48-58,64-90,97-122,_
+
 "
 " lexical
 "
@@ -84,22 +87,22 @@ endif
 
 " keyword highlighting
 syn keyword atsKeyword prefix postfix infix infixl infixr op nonfix
-syn keyword atsKeyword staload stadef sta
-syn keyword atsCond if then else case
+syn keyword atsKeyword staload stadef sta macdef
+syn keyword atsKeyword symintr overload with
+syn keyword atsKeyword prval praxi datasort
+syn keyword atsCond if then else case case+ when
 syn keyword atsRepeat while
 syn keyword atsException exception raise try
 syn keyword atsStatement let in where local
 syn keyword atsStatement val and fun fn lam fix rec var of
-syn keyword atsStatement begin end
+syn keyword atsStatement begin end castfn
 syn keyword atsTypedef typedef sortdef viewtypedef
 syn keyword atsStructure datatype abstype dataviewtype dataprop dataview
-syn keyword atsExternal extern implement
+syn keyword atsStructure abst@ype viewt@ype
+syn keyword atsExternal extern implement $extype $extval
 
-syn keyword atsKeyword symintr overload with
-syn keyword atsKeyword prval praxi datasort
 
-syn keyword atsSorts bool char int prop type view viewtype
-
+syn keyword atsTypes bool char int prop type view viewtype t@ype t@ype+
 syn keyword atsTypes string float double void
 
 syn match   atsSym "[%&+-\./:=@~`^|*!$#?]+\|[%&+-\./:=@~`^|*<>]+"
@@ -146,7 +149,7 @@ AtsHiLink atsOctalError atsError
 " identifiers
 AtsHiLink atsIdent Identifier
 " various keywords
-AtsHiLink atsKey Keyword
+AtsHiLink atsKeyword Keyword
 AtsHiLink atsCond Conditional
 AtsHiLink atsRepeat Repeat
 AtsHiLink atsException Exception
