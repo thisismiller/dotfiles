@@ -71,7 +71,7 @@ syn match   atsFloat display contained "\d\+e[-+]\=\d\+\>"
 syn match   atsOctalError display contained "0\o*[89]\d*"
 syn case match
 
-syn match   atsIdent "[A-Za-z_][0-9A-Za-z_\']*"
+syn match   atsIdent "[A-Za-z_$][0-9A-Za-z_\']*"
 
 " embedded C
 " %{^ %} %{ %} %{$ %} %{# %}
@@ -104,6 +104,7 @@ syn keyword atsExternal extern implement $extype $extval
 
 syn keyword atsTypes bool char int prop type view viewtype t@ype t@ype+
 syn keyword atsTypes string float double void
+syn keyword atsTypes fun0 fun1 cloref cloref0 cloref1
 
 syn match   atsSym "[%&+-\./:=@~`^|*!$#?]+\|[%&+-\./:=@~`^|*<>]+"
 
@@ -156,7 +157,7 @@ AtsHiLink atsException Exception
 AtsHiLink atsStatement Statement
 AtsHiLink atsTypedef Typedef
 AtsHiLink atsStructure Structure
-AtsHiLink atsExternal StorageClass
+AtsHiLink atsExternal Keyword
 AtsHiLink atsTypes Type
 AtsHiLink atsSym Operator
 AtsHiLink atsEncl Keyword
