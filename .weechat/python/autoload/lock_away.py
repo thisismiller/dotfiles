@@ -32,6 +32,8 @@ SCRIPT_COMMAND = "lock_away"
 
 import_ok = True
 
+import os
+
 try:
     import weechat
 except ImportError:
@@ -47,6 +49,7 @@ except ImportError:
 
 def screensaver_interface():
     import dbus
+    os.environ.setdefault("DISPLAY", '0:0')
     bus = dbus.SessionBus()
     ss = bus.get_object('org.gnome.ScreenSaver', '/org/gnome/ScreenSaver')
     iface = dbus.Interface(ss, 'org.gnome.ScreenSaver')
