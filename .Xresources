@@ -1,0 +1,106 @@
+! Colors
+! special
+URxvt.foreground:   #eaeaea
+URxvt.background:   #000000
+URxvt.cursorColor:  #eaeaea
+! black
+URxvt.color0:       #000000
+URxvt.color8:       #808080
+! red
+URxvt.color1:       #ff0000
+URxvt.color9:       #ffacac
+! green
+URxvt.color2:       #00ff00
+URxvt.color10:      #acffac
+! yellow
+URxvt.color3:       #ffe100
+URxvt.color11:      #ffe1ac
+! blue
+URxvt.color4:       #0000ff
+URxvt.color12:      #00acff
+!URxvt.color12:      #00acff
+! magenta
+URxvt.color5:       #C000ff
+URxvt.color13:      #ffacff
+! cyan
+URxvt.color6:       #00c8c8
+URxvt.color14:      #acffff
+! white
+URxvt.color7:       #c0c0c0
+URxvt.color15:      #ffffff
+
+! gruvbox colors
+URxvt.color24:  #076678
+URxvt.color66:  #427b58
+URxvt.color88:  #9d0006
+URxvt.color96:  #8f3f71
+URxvt.color100: #79740e
+URxvt.color108: #8ec07c
+URxvt.color109: #83a598
+URxvt.color130: #af3a03
+URxvt.color136: #b57614
+URxvt.color142: #b8bb26
+URxvt.color167: #fb4934
+URxvt.color175: #d3869b
+URxvt.color208: #fe8019
+URxvt.color214: #fabd2f
+URxvt.color223: #ebdbb2
+URxvt.color228: #f2e5bc
+URxvt.color229: #fbf1c7
+URxvt.color230: #f9f5d7
+URxvt.color234: #1d2021
+URxvt.color235: #282828
+URxvt.color236: #32302f
+URxvt.color237: #3c3836
+URxvt.color239: #504945
+URxvt.color241: #665c54
+URxvt.color243: #7c6f64
+URxvt.color244: #928374
+URxvt.color245: #928374
+URxvt.color246: #a89984
+URxvt.color248: #bdae93
+URxvt.color250: #d5c4a1
+
+! 256color
+URxvt*.termName: rxvt-unicode-256color
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: false
+
+! Scrolling with less running scrolls less and not history
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+
+! Links are clickable
+!URxvt.perl-ext-common: default,matcher
+!URxvt.url-launcher: /usr/bin/xdg-open
+!URxvt.matcher.button: 1
+
+! Font
+URxvt*font: xft:Inconsolata-Regular:size=12
+
+! No scrollbar
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.scrollBar_floating: false
+URxvt.scrollstyle: rxvt
+
+! PrintScreen wont actually print on a printer
+URxvt.print-pipe: "cat > /dev/null"
+
+! Make weird modes go away
+URxvt.iso14755: true
+URxvt.iso14755_52: false
+
+! Rebind ctrl-alt-c/v to ctrl-shift-c/v
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+
+! Remove titlebar
+URxvt.tabbed.autohide: true
